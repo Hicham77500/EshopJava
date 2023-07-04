@@ -21,8 +21,8 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column (name = "IDCAT")
     private long idCat ;
-    @Column (name = "TITLE")
-    private String title ; 
+    @Column (name = "NAME")
+    private String name ; 
     @Column (name = "DESCRIPTION")
     private String description;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idCat")
@@ -31,9 +31,9 @@ public class Category implements Serializable {
     public Category() {
     }
 
-    public Category(long idCat, String title, String description, List<Product> listProducts) {
+    public Category(long idCat, String name, String description, List<Product> listProducts) {
         this.idCat = idCat;
-        this.title = title;
+        this.name = name;
         this.description = description;
         this.listProducts = listProducts;
     }
@@ -46,12 +46,12 @@ public class Category implements Serializable {
         this.idCat = idCat;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -70,6 +70,6 @@ public class Category implements Serializable {
         this.listProducts = listProducts;
     }
 
-
+   
   
 }

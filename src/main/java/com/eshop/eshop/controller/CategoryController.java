@@ -38,7 +38,7 @@ public class CategoryController {
 //Crée une categorie 
   @PostMapping("/categories")
   //@PreAuthorize("hasAnyAuthority('admin:create')")
-  public Category createCategory(Category category) {
+  public Category createCategory(@RequestBody Category category) {
       return categoryDao.saveCategory(category);
 
   }

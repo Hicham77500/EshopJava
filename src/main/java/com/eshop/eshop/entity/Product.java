@@ -1,12 +1,16 @@
 package com.eshop.eshop.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,8 +22,8 @@ public class Product implements Serializable{
     private long idProd;
     @Column (name = "IDCAT")
     private long idCat;
-    @Column (name = "TITLE")
-    private String title; 
+    @Column (name = "NAME")
+    private String name; 
     @Column (name = "DESCRIPTION")
     private String description;
     @Column (name = "STOCK")
@@ -29,18 +33,22 @@ public class Product implements Serializable{
     @Column (name = "PRICE")
     private double price;
     
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idProd")
+    private List<OrderLine> listOrderLines = new ArrayList<>();
+
     public Product() {
     }
 
-    public Product(long idProd, long idCat, String title, String description, long stock, String urlImage,
-            double price) {
+    public Product(long idProd, long idCat, String name, String description, long stock, String urlImage, double price,
+            List<OrderLine> listOrderLines) {
         this.idProd = idProd;
         this.idCat = idCat;
-        this.title = title;
+        this.name = name;
         this.description = description;
         this.stock = stock;
         this.urlImage = urlImage;
         this.price = price;
+        this.listOrderLines = listOrderLines;
     }
 
     public long getIdProd() {
@@ -59,12 +67,12 @@ public class Product implements Serializable{
         this.idCat = idCat;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -97,6 +105,14 @@ public class Product implements Serializable{
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public List<OrderLine> getListOrderLines() {
+        return listOrderLines;
+    }
+
+    public void setListOrderLines(List<OrderLine> listOrderLines) {
+        this.listOrderLines = listOrderLines;
     }
 
    

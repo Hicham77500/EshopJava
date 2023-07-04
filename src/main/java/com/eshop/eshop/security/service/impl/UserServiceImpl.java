@@ -78,10 +78,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		validateNewUsernameAndEmail(EMPTY, userCreated.getUsername(), userCreated.getEmail());
 		User user = new User();
 		String encodedPassword = encodePassword(userCreated.getPassword());
-		user.setCompleteName(userCreated.getCompleteName());
+		user.setLastName(userCreated.getLastName());
+		user.setFirstName(userCreated.getFirstName());
 		user.setUsername(userCreated.getUsername());
 		user.setEmail(userCreated.getEmail());
-		user.setAge(userCreated.getAge());
+		//user.setAge(userCreated.getAge());
+		user.setAge(new Date());
 		user.setGenre(userCreated.getGenre());
 		user.setJoinDate(new Date());
 		user.setPassword(encodedPassword);
@@ -110,33 +112,34 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Override
 	public User register(User userCreated) throws UserNotFoundException,
-	UsernameExistException, EmailExistException {
-	// try {
-	validateNewUsernameAndEmail(EMPTY, userCreated.getUsername(),
-	userCreated.getEmail());
-	User user = new User();
-	String encodedPassword = encodePassword(userCreated.getPassword());
-	user.setCompleteName(userCreated.getCompleteName());
-	user.setUsername(userCreated.getUsername());
-	user.setEmail(userCreated.getEmail());
-	user.setAge(new Date());
-	user.setGenre(userCreated.getGenre());
-	user.setJoinDate(new Date());
-	user.setPassword(encodedPassword);
-	user.setActive(true);
-	user.setNotLocked(true);
-	user.setRole(ROLE_USER.name());
-	user.setAuthorities(ROLE_USER.getAuthorities());
-	if (user.getGenre().equals("homme")) {
+			UsernameExistException, EmailExistException {
+		// try {
+		validateNewUsernameAndEmail(EMPTY, userCreated.getUsername(),
+				userCreated.getEmail());
+		User user = new User();
+		String encodedPassword = encodePassword(userCreated.getPassword());
+		user.setLastName(userCreated.getLastName());
+		user.setFirstName(userCreated.getFirstName());
+		user.setUsername(userCreated.getUsername());
+		user.setEmail(userCreated.getEmail());
+		user.setAge(new Date());
+		user.setGenre(userCreated.getGenre());
+		user.setJoinDate(new Date());
+		user.setPassword(encodedPassword);
+		user.setActive(true);
+		user.setNotLocked(true);
+		user.setRole(ROLE_USER.name());
+		user.setAuthorities(ROLE_USER.getAuthorities());
+		if (user.getGenre().equals("homme")) {
 
-	user.setProfileImageURL("homme.png");
-	} else {
-	user.setProfileImageURL("femme.png");
-	}
-	iUserRepository.save(user);
-	LOGGER.info(NEW_USER_PASSWORD + userCreated.getPassword());
-	
-	return user;
+			user.setProfileImageURL("homme.png");
+		} else {
+			user.setProfileImageURL("femme.png");
+		}
+		iUserRepository.save(user);
+		LOGGER.info(NEW_USER_PASSWORD + userCreated.getPassword());
+
+		return user;
 
 	}
 
@@ -178,7 +181,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 			currentUser.setActive(true);
 			currentUser.setNotLocked(true);
 		} else {
-			currentUser.setCompleteName(user.getCompleteName());
+			currentUser.setLastName(user.getLastName());
+			currentUser.setFirstName(user.getFirstName());
 			currentUser.setUsername(user.getUsername());
 			currentUser.setEmail(user.getEmail());
 			currentUser.setAge(user.getAge());

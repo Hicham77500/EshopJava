@@ -38,7 +38,7 @@ public class ProductController {
   //Crée une product 
     @PostMapping("/products")
     //@PreAuthorize("hasAnyAuthority('admin:create')")
-    public Product createProduct(Product product) {
+    public Product createProduct(@RequestBody Product product) {
         return productDao.saveProduct(product);
   
     }

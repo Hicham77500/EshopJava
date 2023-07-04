@@ -60,15 +60,15 @@ public class UserResource extends ExceptionHandling {
 	}
 
 	@GetMapping("/admin/listUser")
-	@PreAuthorize("hasAnyAuthority('admin:read')")
+	//@PreAuthorize("hasAnyAuthority('admin:read')")
 	public ResponseEntity<List<User>> getAllUser() {
 		List<User> user = userService.getUsers();
 
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
-	@GetMapping("/admin/getUser/{uid}")
-	@PreAuthorize("hasAnyAuthority('admin:read')")
+	@GetMapping("/getUser/{uid}")
+	//@PreAuthorize("hasAnyAuthority('admin:read')")
 	public ResponseEntity<User> getUser(@PathVariable("uid") long uid) {
 		User user = userService.findUserById(uid);
 
@@ -92,7 +92,7 @@ public class UserResource extends ExceptionHandling {
 	}
 
 	@PostMapping("/admin/addUser")
-	@PreAuthorize("hasAnyAuthority('admin:create')")
+	//@PreAuthorize("hasAnyAuthority('admin:create')")
 	public ResponseEntity<User> addNewUser(@RequestBody User user)
 			throws UserNotFoundException, UsernameExistException, EmailExistException, IOException,
 			NotAnImageFileException {
